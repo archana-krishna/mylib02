@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/libmodel');
+// mongoose.connect('mongodb://localhost:27017/libmodel');
+mongoose.connect('mongodb+srv://<username>:<password>@library.f2gvi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
 const Schema = mongoose.Schema;
 

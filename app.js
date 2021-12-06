@@ -1,20 +1,23 @@
 
-const express = require('express');
+var express = require('express');
+var app = new express(); 
+
 const bookdata = require('./src/model/libmodel');
+
 const cors = require('cors');
 const path = require('path');
-var port - process.env.PORT||3000;
-var app = new express();
+const port = process.env.PORT||3000;
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(`./dist/<Library>`));
 
 
-app.get(`/*`, function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist//Library/index.html'));
-   });
 
 app.post('/api/insert',function(req,res){
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
    
     console.log(req.body);
    
@@ -31,6 +34,8 @@ app.post('/api/insert',function(req,res){
 
 
 app.get('/api/libs',function(req,res){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
     
     bookdata.find()
                 .then(function(products){
@@ -39,16 +44,22 @@ app.get('/api/libs',function(req,res){
 });
 
 app.get('/api/:id',  (req, res) => {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
   
     const id = req.params.id;
       bookdata.findOne({"_id":id})
       .then((book)=>{
           res.send(book);
       });
-  })
+  });
 
 
   app.put('/api/update',(req,res)=>{
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
     console.log(req.body)
     id=req.body._id,
     title= req.body.title,
@@ -62,21 +73,29 @@ app.get('/api/:id',  (req, res) => {
                                 "image":image}})
    .then(function(){
        res.send();
-   })
- })
+   });
+ });
 
 
  app.delete('/api/remove/:id',(req,res)=>{
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
    
     id = req.params.id;
     bookata.findByIdAndDelete({"_id":id})
     .then(()=>{
         console.log('success')
         res.send();
-    })
-  })
+    });
+  });
+
+  app.get(`/*`, function(req, res) {
+
+    res.sendFile(path.join(__dirname + '/dist//Library/index.html'));
+   });
+
 
 
 app.listen(port,()=>{console.log("server Ready at"+port)});
-    //console.log('/api/');
-});
+
