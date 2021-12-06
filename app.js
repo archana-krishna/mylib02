@@ -10,11 +10,11 @@ const port = process.env.PORT||3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(`./dist/<Library>`));
+app.use(express.static('./dist/Library'));
 
+// books
 
-
-app.post('/api/insert',function(req,res){
+app.post('/api/book/insert',function(req,res){
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -43,7 +43,7 @@ app.get('/api/libs',function(req,res){
                 });
 });
 
-app.get('/api/:id',  (req, res) => {
+app.get('/api/book/:id',  (req, res) => {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -56,7 +56,7 @@ app.get('/api/:id',  (req, res) => {
   });
 
 
-  app.put('/api/update',(req,res)=>{
+  app.put('/api/book/update',(req,res)=>{
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -77,7 +77,7 @@ app.get('/api/:id',  (req, res) => {
  });
 
 
- app.delete('/api/remove/:id',(req,res)=>{
+ app.delete('/api/book/remove/:id',(req,res)=>{
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -90,7 +90,7 @@ app.get('/api/:id',  (req, res) => {
     });
   });
 
-  app.get(`/*`, function(req, res) {
+  app.get('/*', function(req, res) {
 
     res.sendFile(path.join(__dirname + '/dist//Library/index.html'));
    });
